@@ -58,12 +58,8 @@ authtoken=`echo "${auth1}" | grep -i 'x-radiko-authtoken' | awk -F'[=]' '{print$
 token=`echo "${auth1}" | grep -i 'x-radiko-authtoken' | awk -F'[=]' '{print$1}' | tr -d "\r"`
 length=`echo "${auth1}" | grep -i 'x-radiko-keylength' | awk -F'[=]' '{print$2}' | tr -d "\r"`
 offset=`echo "${auth1}" | grep -i 'x-radiko-keyoffset' | awk -F'[=]' '{print$2}' | tr -d "\r"`
-echo $authtoken
-echo $offset
-echo $length
 
 partialkey=`dd if=authkey.png ibs=1 skip=${offset} count=${length} 2> /dev/null | base64`
-echo $partialkey
 
 # 承認ふたつめ
 curl 'https://radiko.jp/v2/api/auth2_fms' \
